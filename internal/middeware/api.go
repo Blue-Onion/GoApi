@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/blue-onion/goApi/api"
+	"github.com/blue-onion/goApi/internal/tools"
+
 	"github.com/sirupsen/logrus"
 )
 var unAuthorizedError=fmt.Errorf("Unauthorized user")
@@ -22,8 +24,8 @@ func Authorization(next http.Handler) http.Handler{
 		if err!=nil{
 			return 
 		}
-		loginDetails:=(*db).getUserDetails(username)
-		if loginDetails==nil||token!=(*loginDetails).AuthToken{
+		loginDetails:=(*db).GetUserDetails(username)
+		if loginDetails==nil||token!=(*loginDetails).Token{
 			logrus.Error(unAuthorizedError)
 			api.ReqErrorHandler(w,unAuthorizedError)
 			return 

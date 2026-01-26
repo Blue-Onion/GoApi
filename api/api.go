@@ -3,11 +3,11 @@ import (
 	"encoding/json"
 	"net/http"
 )
-type coinBalanceParams struct {
+type CoinBalanceParams struct {
 	UserName string
 }
 type statusCode int
-type coinResponse struct {
+type CoinResponse struct {
 	StatusCode int
 	Balance    int64
 }
