@@ -15,12 +15,15 @@ func Authorization(next http.Handler) http.Handler{
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		username:=r.URL.Query().Get("username")
 		token:=r.Header.Get("Authorization")
+		logrus.Info(username,token)
 		if username==""||token==""{
 			logrus.Error(unAuthorizedError)
+			logrus.Info(username,token)
 			api.ReqErrorHandler(w,unAuthorizedError)
 			return 
 		}
 		db,err:=tools.NewDatabase()
+		logrus.Error(db)
 		if err!=nil{
 			return 
 		}

@@ -1,6 +1,10 @@
 package tools
 
-import "time"
+import (
+	"time"
+
+	"github.com/sirupsen/logrus"
+)
 
 type mockDb struct{}
 var mockLoginDetail=map[string]LoginDetails{
@@ -44,8 +48,10 @@ func (d *mockDb) GetUserDetails(userName string)*LoginDetails{
 	clientLoginData:=LoginDetails{}
 	clientLoginData,ok:=mockLoginDetail[userName]
 	if !ok{
+		logrus.Info(&clientLoginData)
 		return nil
 	}
+
 	return &clientLoginData
 }
 func (d *mockDb) GetCoinDetails(userName string)*CoinDetails{
